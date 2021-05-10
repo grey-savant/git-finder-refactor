@@ -11,4 +11,4 @@ The Github API is accessed using axios.
 The components have been refactored from class-based components to function-based components and hooks. 
 ## State management
 
-There is no state management implementation, such as Context API or Redux, used in this example.
+App and component state are managed using Context API in this example.
