@@ -1,10 +1,13 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useContext } from 'react';
 import Spinner from '../layout/Spinner';
 import Repos from '../repos/Repos';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import GithubContext from '../../context/github/githubContext';
 
-const User =({ user, loading, getUser, getUserRepos, repos, match }) => {
+const User =({ getUserRepos, repos, match }) => {
+    const githubContext = useContext(GithubContext)
+    const { getUser, loading, user } = githubContext;
 
     useEffect (() => {
         getUser(match.params.login);
@@ -12,23 +15,23 @@ const User =({ user, loading, getUser, getUserRepos, repos, match }) => {
         // eslint-disable-next-line
     }, []);
 
-        const {
-            name,
-            avatar_url,
-            location,
-            bio,
-            company,
-            blog,
-            login,
-            html_url,
-            followers,
-            following,
-            public_repos,
-            public_gists,
-            hireable
-        } = user;
+    const {
+        name,
+        avatar_url,
+        location,
+        bio,
+        company,
+        blog,
+        login,
+        html_url,
+        followers,
+        following,
+        public_repos,
+        public_gists,
+        hireable
+    } = user;
 
-        if(loading) return <Spinner />;
+    if(loading) return <Spinner />;
 
     return( <Fragment>
             <div className="row">
@@ -38,7 +41,7 @@ const User =({ user, loading, getUser, getUserRepos, repos, match }) => {
             </div>
             <div className="row">
                 <div className="col-sm-4">
-                    <div className="panel text-center" style={{'box-shadow':'0px'}}>
+                    <div className="panel text-center">
                         <div className="panel-body">
                             <img src={avatar_url} className="img-circle" alt="" style={{width: '150px'}}/>
                             <h1>{name}</h1>
@@ -98,9 +101,7 @@ const User =({ user, loading, getUser, getUserRepos, repos, match }) => {
 
 User.propTypes = {
     loading: PropTypes.bool,
-    user: PropTypes.object.isRequired,
     repos: PropTypes.array.isRequired,
-    getUser: PropTypes.func.isRequired,
     getUserRepos: PropTypes.func.isRequired
 }
 
