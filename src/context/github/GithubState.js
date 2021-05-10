@@ -9,7 +9,6 @@ import {
     GET_USER,
     GET_REPOS
 } from '../types';
-import githubContext from './githubContext';
 
 // create initial state
 const GithubState = props => {
